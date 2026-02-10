@@ -1,0 +1,516 @@
+# ============================================
+# STANDARD TASKS
+# ============================================
+
+planning_task:
+  description: |
+    Analysiere gründlich: {topic}
+    
+    Erstelle einen DETAILLIERTEN Plan mit:
+    
+    1. **Anforderungsanalyse**
+       - Was GENAU soll gebaut werden?
+       - Welche Features sind nötig?
+       - Welche Tech-Stack passt am besten?
+    
+    2. **Technische Entscheidungen**
+       - Sprache/Framework
+       - Database (SQL vs NoSQL)
+       - Architecture Pattern
+    
+    3. **Komponenten-Struktur**
+       - Welche Dateien/Module?
+       - Wie hängen sie zusammen?
+       - Naming-Convention
+    
+    4. **Umsetzungsplan mit KLAREN Anweisungen**
+       Für Developer:
+       - EXAKTE Dateinamen: "Erstelle `api/routes/users.py`"
+       - Funktions-Namen: "Schreibe Funktion `def create_user(name: str, email: str)`"
+       - Erwartete Parameter & Return-Types
+       - Code-Beispiele wenn möglich
+       
+       Für Tester:
+       - Was muss getestet werden?
+       - Welche Edge Cases?
+       
+       Für Documenter:
+       - Welche Sections im README?
+    
+    WICHTIG: Je klarer deine Anweisungen, desto besser das Ergebnis!
+  expected_output: "Detaillierter Plan mit KLAREN, SPEZIFISCHEN Anweisungen für jedes Team-Mitglied"
+  agent: orchestrator
+
+coding_task:
+  description: |
+    Implementiere EXAKT nach dem Plan: {topic}
+    
+    **SCHRITT 1: Analysiere Arbeitsverzeichnis**
+    - Nutze DirectoryReadTool um ALLE vorhandenen Dateien zu scannen
+    - Lese vorhandene Dateien mit FileReadTool
+    - Berücksichtige bestehenden Code/Struktur
+    - Vermeide Duplikate oder Konflikte
+    
+    **SCHRITT 2: Code erstellen**
+    - Befolge die Anweisungen des Orchestrators GENAU
+    - Nutze vorgegebene Datei-/Funktionsnamen
+    - Implementiere alle spezifizierten Features
+    - Type Hints für alle Funktionen (Python)
+    - Error Handling für alle kritischen Stellen
+    - Kommentare für komplexe Logik
+    - Folge PEP 8 (Python) / Coding Standards
+    
+    **SCHRITT 3: Dateien speichern**
+    - Nutze das "Write File" Tool zum Speichern!
+    - Speichere im Arbeitsverzeichnis (auch Unterordner erlaubt!)
+    - Erstelle VOLLSTÄNDIGE Dateien mit allen Imports
+    - Beispiel einfach: Write File mit filename="main.py" und content="import os\n\ndef add(a, b):\n    return a + b"
+    - Beispiel mit Unterordner: Write File mit filename="src/utils.py" und content="..."
+    - Unterordner werden automatisch erstellt
+    - Überschreibe existierende Dateien falls nötig
+    
+    WICHTIG: Wenn etwas unklar ist, FRAGE nach statt zu raten!
+  expected_output: "Vollständiger, funktionierender Code als Dateien im Arbeitsverzeichnis gespeichert (mit Write File Tool)"
+  agent: developer
+  context:
+    - planning_task
+
+testing_task:
+  description: |
+    Erstelle umfassende Tests für: {topic}
+    
+    **SCHRITT 1: Scanne Arbeitsverzeichnis**
+    - Finde ALLE zu testenden Code-Dateien
+    - Lese den Code um zu verstehen was getestet werden muss
+    - Prüfe ob bereits Tests existieren
+    
+    **SCHRITT 2: Test-Suite erstellen**
+    
+    1. **Unit Tests**
+       - Jede Funktion/Klasse einzeln testen
+       - Mindestens 3 Tests pro Funktion:
+         * Happy Path
+         * Edge Case
+         * Error Case
+    
+    2. **Integration Tests**
+       - Zusammenspiel der Komponenten
+       - API Endpoints (wenn vorhanden)
+       - Database Interaktionen
+    
+    3. **Edge Cases**
+       - Leere Inputs (`""`, `[]`, `None`, `{}`)
+       - Sehr große Zahlen
+       - Negative Zahlen
+       - Spezialzeichen
+       - Concurrent Access
+    
+    4. **Error Handling**
+       - Teste dass Errors korrekt gehandlet werden
+       - Teste Validierung
+    
+    Nutze: pytest (Python) / jest (JavaScript)
+    Ziel: Mindestens 80% Coverage
+    
+    **SCHRITT 3: Tests speichern**
+    - Nutze das "Write File" Tool zum Speichern!
+    - Speichere Test-Dateien im Arbeitsverzeichnis (auch Unterordner erlaubt!)
+    - Nutze Namenskonvention: test_*.py oder *_test.py
+    - Beispiel einfach: Write File mit filename="test_email_validator.py" und content="import pytest\n\ndef test_valid_email():\n    ..."
+    - Beispiel mit Unterordner: Write File mit filename="tests/test_utils.py" und content="..."
+    
+    Organisiere in `test_*.py` Dateien.
+  expected_output: "Vollständige Test-Suite mit 80%+ Coverage, gespeichert im Arbeitsverzeichnis (mit Write File Tool)"
+  agent: tester
+  context:
+    - planning_task
+    - coding_task
+
+documentation_task:
+  description: |
+    Dokumentiere das Projekt vollständig: {topic}
+    
+    **SCHRITT 1: Analysiere Projekt**
+    - Scanne Arbeitsverzeichnis mit DirectoryReadTool
+    - Lese alle Code-Dateien
+    - Verstehe die Struktur und Funktionalität
+    - Prüfe ob bereits Dokumentation existiert
+    
+    **SCHRITT 2: Erstelle Dokumentation**
+    
+    1. **README.md**
+       ```markdown
+       # Project Name
+       
+       ##  Beschreibung
+       Was macht das Projekt?
+       
+       ##  Installation
+       ```bash
+       # Schritt-für-Schritt
+       ```
+       
+       ##  Usage
+       ```python
+       # Konkretes Code-Beispiel
+       ```
+       
+       ##  Testing
+       ```bash
+       pytest
+       ```
+       
+       ##  API Documentation
+       (wenn relevant)
+       
+       ##  Troubleshooting
+       Häufige Probleme & Lösungen
+       ```
+    
+    2. **Code-Dokumentation**
+       - Docstrings für ALLE Funktionen/Klassen
+       - Format: Google Style oder NumPy Style
+       - Parameter & Return-Types erklären
+    
+    3. **Mindestens 2 Beispiele**
+       - Quick Start (einfachstes Beispiel)
+       - Advanced Example (komplexeres Szenario)
+    
+    **SCHRITT 3: Dokumentation speichern**
+    - Nutze das "Write File" Tool!
+    - Speichere README.md im Arbeitsverzeichnis (Root oder Unterordner)
+    - Beispiel Root: Write File mit filename="README.md" und content="...vollständige Doku..."
+    - Beispiel Unterordner: Write File mit filename="docs/API.md" und content="..."
+    - Aktualisiere Code-Dateien mit Docstrings (lese alte Version, füge Docstrings hinzu, speichere neu)
+  expected_output: "Professionelle, vollständige Dokumentation (README.md + Docstrings), gespeichert im Arbeitsverzeichnis (mit Write File Tool)"
+  agent: documenter
+  context:
+    - planning_task
+    - coding_task
+    - testing_task
+
+# ============================================
+# SPECIALIZED TASKS
+# ============================================
+
+architecture_task:
+  description: |
+    Entwerfe System-Architektur für: {topic}
+    
+    Erstelle:
+    1. **High-Level Architecture**
+       - Komponenten-Diagramm (ASCII oder Mermaid)
+       - Datenfluss
+       - Technologie-Stack
+    
+    2. **Database Schema**
+       - Tabellen/Collections
+       - Relationships
+       - Indexes
+    
+    3. **API Design**
+       - Endpoints
+       - Request/Response Formats
+       - Authentication Flow
+    
+    4. **Folder Structure**
+       ```
+       project/
+        src/
+           api/
+           models/
+           services/
+       ```
+    
+    5. **Architecture Decision Records**
+       - Warum diese Technologie?
+       - Trade-offs
+       - Alternativen erwogen
+  expected_output: "Vollständiger Architecture Document mit Diagrammen"
+  agent: architect
+
+security_audit_task:
+  description: |
+    Security-Audit für: {topic}
+    
+    Prüfe:
+    
+    1. **Code-Analyse**
+       - Hardcoded Secrets? (grep -r "api_key" .)
+       - SQL Injection Möglichkeiten?
+       - XSS Vulnerabilities?
+       - CSRF Protection?
+    
+    2. **Dependencies**
+       - `npm audit` / `pip-audit`
+       - Veraltete Packages?
+       - Known Vulnerabilities?
+    
+    3. **Authentication**
+       - Password Hashing (bcrypt/argon2)?
+       - JWT richtig implementiert?
+       - Session Management sicher?
+    
+    4. **Input Validation**
+       - Alle User-Inputs validiert?
+       - Sanitization vorhanden?
+    
+    5. **Secrets Management**
+       - .env genutzt?
+       - Secrets nie in Git?
+    
+    Für JEDEN Fund:
+    - Severity (Critical/High/Medium/Low)
+    - Konkrete Fix-Anleitung
+    - Code-Beispiel
+  expected_output: "Security Audit Report mit konkreten Fixes"
+  agent: security_expert
+
+devops_task:
+  description: |
+    Setup CI/CD & Deployment für: {topic}
+    
+    Erstelle:
+    
+    1. **Dockerfile**
+       ```dockerfile
+       FROM python:3.11-slim
+       # Multi-stage build
+       # Best practices
+       ```
+    
+    2. **docker-compose.yml**
+       - App Service
+       - Database Service
+       - Redis (wenn nötig)
+       - Networks & Volumes
+    
+    3. **CI/CD Pipeline** (.github/workflows/ci.yml)
+       - Lint & Format Check
+       - Run Tests
+       - Build Docker Image
+       - Deploy (optional)
+    
+    4. **.dockerignore**
+    
+    5. **Health Checks**
+       - `/health` endpoint
+       - Database connection check
+    
+    6. **Environment Variables**
+       - `.env.example`
+       - Dokumentiere alle Vars
+  expected_output: "Produktionsreife DevOps-Config"
+  agent: devops_engineer
+
+frontend_task:
+  description: |
+    Entwickle Frontend für: {topic}
+    
+    Erstelle:
+    
+    1. **React/Vue Components**
+       - Atomic Design (Atoms  Molecules  Organisms)
+       - TypeScript (type-safe)
+       - Tailwind CSS (styling)
+    
+    2. **State Management**
+       - Zustand / Redux
+       - Global State
+       - Local State
+    
+    3. **Routing**
+       - React Router / Vue Router
+       - Protected Routes
+    
+    4. **API Integration**
+       - Axios / Fetch
+       - Error Handling
+       - Loading States
+    
+    5. **Responsiveness**
+       - Mobile-First
+       - Breakpoints (sm, md, lg, xl)
+    
+    6. **Accessibility**
+       - Semantic HTML
+       - ARIA Labels
+       - Keyboard Navigation
+  expected_output: "Produktionsreifes Frontend mit allen Components"
+  agent: frontend_developer
+
+backend_task:
+  description: |
+    Entwickle Backend für: {topic}
+    
+    Erstelle:
+    
+    1. **API Routes**
+       - RESTful Endpoints
+       - Input Validation (Pydantic)
+       - Error Handling (proper HTTP codes)
+    
+    2. **Database Models**
+       - ORM (SQLAlchemy / Prisma)
+       - Relationships
+       - Migrations
+    
+    3. **Business Logic**
+       - Service Layer
+       - Clear Separation of Concerns
+    
+    4. **Authentication**
+       - JWT Tokens
+       - Password Hashing (bcrypt)
+       - Protected Endpoints
+    
+    5. **OpenAPI Documentation**
+       - Auto-generated Swagger
+    
+    6. **Rate Limiting**
+       - SlowAPI / express-rate-limit
+  expected_output: "Vollständiges Backend API mit Dokumentation"
+  agent: backend_developer
+
+database_design_task:
+  description: |
+    Entwerfe Database Schema für: {topic}
+    
+    Erstelle:
+    
+    1. **Schema Design**
+       - Tables/Collections
+       - Columns/Fields (mit Types)
+       - Primary/Foreign Keys
+       - Constraints (NOT NULL, UNIQUE)
+    
+    2. **Relationships**
+       - One-to-Many
+       - Many-to-Many
+       - Junction Tables
+    
+    3. **Indexes**
+       - Welche Columns?
+       - Composite Indexes?
+    
+    4. **Migration Scripts**
+       - CREATE TABLE Statements
+       - Oder: Alembic/Prisma Migrations
+    
+    5. **Example Queries**
+       - Häufigste Queries
+       - Optimiert mit Indexes
+    
+    6. **ER-Diagram** (ASCII oder Mermaid)
+  expected_output: "Vollständiges DB Schema mit Migrations"
+  agent: database_expert
+
+code_review_task:
+  description: |
+    Code Review für: {topic}
+    
+    Prüfe:
+    
+    1. **Code Quality**
+       - Naming (klar & beschreibend?)
+       - Functions (zu lang? > 20 Zeilen?)
+       - Complexity (zu komplex?)
+       - Duplicate Code (DRY-Prinzip?)
+    
+    2. **Best Practices**
+       - SOLID Principles eingehalten?
+       - Design Patterns sinnvoll genutzt?
+       - Error Handling vorhanden?
+    
+    3. **Performance**
+       - Ineffiziente Algorithmen? (O(n) vermeidbar?)
+       - N+1 Query Problem?
+       - Unnötige Loops?
+    
+    4. **Security**
+       - Input Validation?
+       - SQL Injection möglich?
+       - Secrets hardcoded?
+    
+    5. **Testing**
+       - Tests vorhanden?
+       - Edge Cases abgedeckt?
+    
+    Für JEDEN Fund:
+    - Was ist das Problem?
+    - Warum ist es ein Problem?
+    - Wie fixen? (Code-Beispiel)
+  expected_output: "Detaillierter Code Review Report mit Verbesserungsvorschlägen"
+  agent: code_reviewer
+
+refactoring_task:
+  description: |
+    Refactor Code für: {topic}
+    
+    Verbessere ohne Funktionalität zu ändern:
+    
+    1. **Extract Method**
+       - Lange Funktionen  kleinere Funktionen
+       - Jede Funktion eine Verantwortung
+    
+    2. **Rename**
+       - Unclear Namen  klare Namen
+       - `data`  `user_profile`
+       - `x`  `user_id`
+    
+    3. **Remove Duplication**
+       - DRY-Prinzip
+       - Gemeinsamer Code  Utility Functions
+    
+    4. **Simplify Conditionals**
+       - Nested IFs  Guard Clauses
+       - Complex Boolean  Named Variables
+    
+    5. **Improve Structure**
+       - God Class  Mehrere Klassen
+       - Tight Coupling  Dependency Injection
+    
+    Zeige:
+    - Vorher-Code
+    - Nachher-Code
+    - Erklärung was besser ist
+  expected_output: "Refactored Code mit Vorher/Nachher-Vergleich"
+  agent: refactoring_expert
+
+performance_optimization_task:
+  description: |
+    Optimiere Performance für: {topic}
+    
+    Analysiere & Verbessere:
+    
+    1. **Algorithm Complexity**
+       - Aktuelle Complexity?
+       - Optimierungsmöglichkeiten?
+       - O(n)  O(n log n)?
+    
+    2. **Database Queries**
+       - N+1 Problem?
+       - Missing Indexes?
+       - Query Optimization
+    
+    3. **Caching**
+       - Was kann gecacht werden?
+       - Redis/Memory Cache
+       - Cache Invalidation
+    
+    4. **Memory Usage**
+       - Memory Leaks?
+       - Unnötige Copies?
+       - Generator statt List?
+    
+    5. **Lazy Loading**
+       - On-Demand Loading
+       - Pagination
+    
+    Zeige:
+    - Benchmark Vorher
+    - Optimierungen
+    - Benchmark Nachher
+    - Performance-Gewinn (z.B. "3x schneller")
+  expected_output: "Performance Report mit Optimierungen & Benchmarks"
+  agent: performance_expert
