@@ -121,8 +121,3 @@ Dieses Projekt ist Open Source. Siehe LICENSE-Datei für Details.
 
 Contributions sind willkommen! Bitte erstelle einen Pull Request oder öffne ein Issue.
 
-## ⚠️ Hinweise
-
-- **Niemals** deinen API Key committen
-- Die `.env` Datei ist in `.gitignore` und wird nicht hochgeladen
-- Verwende `.env.template` als Vorlage für andere Nutzer
