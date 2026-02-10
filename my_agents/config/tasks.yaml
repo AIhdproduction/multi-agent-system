@@ -45,31 +45,62 @@ coding_task:
   description: |
     Implementiere EXAKT nach dem Plan: {topic}
     
+    **KRITISCH: Du MUSST Code erstellen und speichern! Sage NIEMALS "ich brauche eine Datei" - DU erstellst die Dateien!**
+    
     **SCHRITT 1: Analysiere Arbeitsverzeichnis**
     - Nutze DirectoryReadTool um ALLE vorhandenen Dateien zu scannen
     - Lese vorhandene Dateien mit FileReadTool
+    - Wenn KEINE passende Datei existiert → ERSTELLE SIE! Das ist dein Job!
     - Berücksichtige bestehenden Code/Struktur
     - Vermeide Duplikate oder Konflikte
     
     **SCHRITT 2: Code erstellen**
-    - Befolge die Anweisungen des Orchestrators GENAU
-    - Nutze vorgegebene Datei-/Funktionsnamen
-    - Implementiere alle spezifizierten Features
+    - Befolge die Anweisungen GENAU (oder erstelle selbst sinnvollen Code wenn keine klaren Anweisungen)
+    - Nutze sinnvolle Datei-/Funktionsnamen
+    - Implementiere alle Features die in der Aufgabe stehen
     - Type Hints für alle Funktionen (Python)
     - Error Handling für alle kritischen Stellen
     - Kommentare für komplexe Logik
     - Folge PEP 8 (Python) / Coding Standards
     
-    **SCHRITT 3: Dateien speichern**
+    **SCHRITT 3: Dateien speichern - PFLICHT!**
     - Nutze das "Write File" Tool zum Speichern!
     - Speichere im Arbeitsverzeichnis (auch Unterordner erlaubt!)
     - Erstelle VOLLSTÄNDIGE Dateien mit allen Imports
-    - Beispiel einfach: Write File mit filename="main.py" und content="import os\n\ndef add(a, b):\n    return a + b"
-    - Beispiel mit Unterordner: Write File mit filename="src/utils.py" und content="..."
+    
+    **KRITISCH - Content Format:**
+    - Der `content` Parameter MUSS ein RAW STRING sein!
+    - ❌ NIEMALS als Array/Liste formatieren: ['code', 'more code']
+    - ❌ NIEMALS als JSON/Dictionary formatieren
+    - ❌ NIEMALS Code-Zeilen einzeln als Liste
+    - ✅ IMMER als EIN zusammenhängender String mit \n für Zeilenumbrüche
+    - Funktioniert für ALLE Sprachen: Python, JavaScript, Java, C++, HTML, CSS, etc.
+    
+    **Beispiele (Python):**
+    - ✅ RICHTIG: content="import requests\n\ndef get_weather(city: str):\n    return requests.get(...)"
+    - ✅ RICHTIG: content="def helper():\n    pass\n\nif __name__ == '__main__':\n    helper()"
+    - ❌ FALSCH: content=['import requests', 'def get_weather...']
+    
+    **Beispiele (JavaScript):**
+    - ✅ RICHTIG: content="const express = require('express');\n\napp.get('/', (req, res) => {\n  res.send('Hello');\n});"
+    - ❌ FALSCH: content=['const express...', 'app.get...']
+    
+    **Beispiele (HTML/CSS):**
+    - ✅ RICHTIG: content="\u003c!DOCTYPE html\u003e\n\u003chtml\u003e\n\u003chead\u003e\u003ctitle\u003eTest\u003c/title\u003e\u003c/head\u003e\n\u003c/html\u003e"
+    - ❌ FALSCH: content=['\u003c!DOCTYPE html\u003e', '\u003chtml\u003e...']
+    
     - Unterordner werden automatisch erstellt
     - Überschreibe existierende Dateien falls nötig
     
-    WICHTIG: Wenn etwas unklar ist, FRAGE nach statt zu raten!
+    **ABSOLUT VERBOTEN:**
+    - ❌ "Ich brauche eine Datei" sagen
+    - ❌ "Bitte stellen Sie eine Datei bereit"
+    - ❌ Passiv warten
+    
+    **PFLICHT:**
+    - ✅ IMMER Code erstellen
+    - ✅ IMMER mit Write File Tool speichern
+    - ✅ Proaktiv handeln
   expected_output: "Vollständiger, funktionierender Code als Dateien im Arbeitsverzeichnis gespeichert (mit Write File Tool)"
   agent: developer
   context:

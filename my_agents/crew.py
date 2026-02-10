@@ -17,10 +17,10 @@ class MyAgentsCrew():
         self.work_dir = os.getcwd()
         
         # Lade Konfigurationen
-        with open(self.package_dir / 'config' / 'agents.yaml', 'r') as f:
+        with open(self.package_dir / 'config' / 'agents.yaml', 'r', encoding='utf-8') as f:
             self.agents_config = yaml.safe_load(f)
         
-        with open(self.package_dir / 'config' / 'tasks.yaml', 'r') as f:
+        with open(self.package_dir / 'config' / 'tasks.yaml', 'r', encoding='utf-8') as f:
             self.tasks_config = yaml.safe_load(f)
         
         # OpenRouter Base URL

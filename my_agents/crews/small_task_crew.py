@@ -15,10 +15,10 @@ def get_crew(work_dir: str):
     
     package_dir = Path(__file__).parent.parent
     
-    with open(package_dir / 'config' / 'agents.yaml', 'r') as f:
+    with open(package_dir / 'config' / 'agents.yaml', 'r', encoding='utf-8') as f:
         agents_config = yaml.safe_load(f)
     
-    with open(package_dir / 'config' / 'tasks.yaml', 'r') as f:
+    with open(package_dir / 'config' / 'tasks.yaml', 'r', encoding='utf-8') as f:
         tasks_config = yaml.safe_load(f)
     
     tools = [
