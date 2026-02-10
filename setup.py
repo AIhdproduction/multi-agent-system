@@ -14,6 +14,6 @@ setup(
             'agents=my_agents.cli:main',
         ],
     },
-    author="Your Name",
+    author="AIhdproduction",
     description="Multi-Agent System für VS Code",
 )

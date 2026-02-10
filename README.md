@@ -83,7 +83,37 @@ python -m pytest test_math_operations.py
 
 Erweitere das System durch neue Agenten im `my_agents/` Verzeichnis.
 
-## 📝 Lizenz
+## �️ Technologie-Stack
+
+Dieses Projekt basiert auf folgenden Open-Source-Technologien und AI-Modellen:
+
+### Framework
+- **[CrewAI](https://github.com/joaomdmoura/crewAI)** - Multi-Agent Orchestration Framework
+- **[CrewAI Tools](https://github.com/joaomdmoura/crewai-tools)** - Werkzeuge für Agenten
+- **Python 3.8+** - Programmiersprache
+- **python-dotenv** - Umgebungsvariablen-Management
+
+### AI-Modelle (via OpenRouter)
+
+Das System nutzt verschiedene spezialisierte AI-Modelle über [OpenRouter](https://openrouter.ai):
+
+| Rolle | Modell | Anbieter |
+|-------|--------|----------|
+| Orchestrator | GPT-5-Nano | OpenAI |
+| Orchestrator (Large Context) | Kimi K2.5 | Moonshot AI |
+| Developer (Frontend) | Qwen3-Coder | Alibaba |
+| Developer (Backend) | Codestral-2508 | Mistral AI |
+| Architect | DeepSeek-V3.2 | DeepSeek |
+| Security Expert | DeepSeek-V3.2 | DeepSeek |
+| Code Reviewer | DeepSeek-V3.2 | DeepSeek |
+| Tester | Gemini 2.5 Flash Lite | Google |
+| Documenter | Gemini 2.5 Flash Lite | Google |
+| Performance Expert | GPT-5-Mini | OpenAI |
+| DevOps Specialist | Codestral-2508 | Mistral AI |
+
+> **Hinweis:** Die Modellauswahl kann in `my_agents/llm_config.py` angepasst werden.
+
+## �📝 Lizenz
 
 Dieses Projekt ist Open Source. Siehe LICENSE-Datei für Details.
 
